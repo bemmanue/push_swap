@@ -10,7 +10,8 @@ void	print_stack(t_stack *stack, char *str)
 	while (temp != NULL)
 	{
 		printf("number = %5d   ", temp->number);
-		printf("index = %d\n", temp->index);
+		printf("index = %d", temp->index);
+		printf("    flag = %d\n", temp->flag);
 		temp = temp->next;
 	}
 }

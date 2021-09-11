@@ -59,6 +59,7 @@ void get_args(int argc, char **argv)
 	i = 0;
 	info = malloc(sizeof(t_info));
 	info->count = argc;
+	printf("numbers = %d\n", info->count);
 	stack_a = ft_lstnew_ps(ft_atoi(argv[i]),
 						   count_index(argv, ft_atoi(argv[i])));
 	temp_a = stack_a;
@@ -71,7 +72,8 @@ void get_args(int argc, char **argv)
 	}
 
 	print_stack(stack_a, "Спискок а до изменений\n");
-	sort_numbers(stack_a, info);
+	if (info->count > 1)
+		sort_numbers(stack_a, info);
 }
 
 int main(int argc, char **argv)

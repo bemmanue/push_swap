@@ -56,7 +56,10 @@ void	rotate_a(t_stack **stack_a)
 	temp = *stack_a;
 	(*stack_a) = (*stack_a)->next;
 	temp->next = NULL;
-	temp2 = (*stack_a)->next;
+	if ((*stack_a)->next != NULL)
+		temp2 = (*stack_a)->next;
+	else
+		temp2 = *stack_a;
 	while (temp2->next != NULL)
 		temp2 = temp2->next;
 	temp2->next = temp;
@@ -70,16 +73,19 @@ void	rotate_b(t_stack **stack_b)
 	temp = *stack_b;
 	(*stack_b) = (*stack_b)->next;
 	temp->next = NULL;
-	temp2 = (*stack_b)->next;
+	if ((*stack_b)->next != NULL)
+		temp2 = (*stack_b)->next;
+	else
+		temp2 = *stack_b;
 	while (temp2->next != NULL)
 		temp2 = temp2->next;
-	temp2->next = temp;;
+	temp2->next = temp;
 }
 
 void	rotate_ab(t_stack **stack_a, t_stack **stack_b)
 {
 	rotate_a(stack_a);
-	rotate_b(stack_b);;
+	rotate_b(stack_b);
 }
 
 void	reverse_rotate_a(t_stack **stack_a)
@@ -113,5 +119,5 @@ void	reverse_rotate_b(t_stack **stack_b)
 void	reverse_rotate_ab(t_stack **stack_a, t_stack **stack_b)
 {
 	reverse_rotate_a(stack_a);
-	reverse_rotate_b(stack_b);;
+	reverse_rotate_b(stack_b);
 }

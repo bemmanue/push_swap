@@ -45,6 +45,7 @@ t_stack	*ft_lstnew_ps(int number, int index)
 		return (NULL);
 	new->number = number;
 	new->index = index;
+	new->flag = 0;
 	new->next = NULL;
 	return (new);
 }

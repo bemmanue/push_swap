@@ -9,6 +9,9 @@ void	sort_numbers(t_stack *stack_a, t_info *info)
 	t_stack *temp;
 	int i;
 	int flag;
+	int min;
+	int a;
+	int b;
 
 	i = 0;
 	flag = 0;
@@ -38,8 +41,6 @@ void	sort_numbers(t_stack *stack_a, t_info *info)
 	i = 0;
 	info->count = info->middle_value;
 	info->middle_value = info->count / 2;
-	printf("count = %d\n", info->count);
-	printf("middle_value = %d\n", info->middle_value);
 	while (info->count > 3)
 	{
 		i = 0;
@@ -101,15 +102,33 @@ void	sort_numbers(t_stack *stack_a, t_info *info)
 		{
 			push_a(&stack_a, &stack_b);
 			rotate_a(&stack_a);
-		}
-		temp = stack_b;
-		if (temp && temp->index == 3)
-		{
-			push_a(&stack_a, &stack_b);
-			rotate_a(&stack_a);
+			temp = stack_b;
+			if (temp && temp->index == 3)
+			{
+				push_a(&stack_a, &stack_b);
+				rotate_a(&stack_a);
+			}
 		}
 	}
 	else if (temp->index == 3)
+	{
+		push_a(&stack_a, &stack_b);
+		temp = stack_b;
+		if (temp && temp->index == 1)
+			rotate_b(&stack_b);
+		push_a(&stack_a, &stack_b);
+		push_a(&stack_a, &stack_b);
+		rotate_a(&stack_a);
+		rotate_a(&stack_a);
+		rotate_a(&stack_a);
+	}
+	temp = stack_a;
+	min = 4;
+	while (stack_a->flag == flag)
+	{
+		temp = stack_a;
+		push_b(&stack_a, &stack_b);
+	}
 	print_stack(stack_a, "Список а после изменений\n");
 	print_stack(stack_b, "Список b после изменений\n");
 }

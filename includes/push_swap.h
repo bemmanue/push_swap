@@ -8,7 +8,11 @@
 typedef struct		s_info
 {
 	int				middle_value;
-	int				count;
+	int				number;
+	int				min;
+	int				max;
+	int				flag;
+	int				sorted;
 }					t_info;
 
 typedef struct		s_stack
@@ -37,6 +41,9 @@ void		ft_lstadd_front_ps(t_stack **lst, t_stack *new);
 t_stack		*ft_lstlast_ps(t_stack *lst);
 t_stack		*ft_lstnew_ps(int number, int index);
 
-void		sort_numbers(t_stack *stack_a, t_info *info);
+void	divide_into_two_stacks(t_stack *stack_a, t_info *info);
+void	divide_into_groups(t_stack *stack_a, t_stack *stack_b, t_info *info);
+void	sort_remains(t_stack *stack_a, t_stack *stack_b, t_info *info);
+void	sort_groups(t_stack *stack_a, t_stack *stack_b, t_info *info);
 
 #endif

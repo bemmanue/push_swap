@@ -2,6 +2,8 @@
 #include "../includes/push_swap.h"
 #include <stdio.h>
 
+int operation = 0;
+
 void	swap_a(t_stack **stack_a)
 {
 	t_stack *temp;
@@ -10,6 +12,7 @@ void	swap_a(t_stack **stack_a)
 	(*stack_a)->next = temp->next;
 	temp->next = *stack_a;
 	*stack_a = temp;
+	operation++;
 }
 
 void	swap_b(t_stack **stack_b)
@@ -20,12 +23,14 @@ void	swap_b(t_stack **stack_b)
 	(*stack_b)->next = temp->next;
 	temp->next = *stack_b;
 	*stack_b = temp;
+	operation++;
 }
 
 void	swap_ab(t_stack **stack_a, t_stack **stack_b)
 {
 	swap_a(stack_a);
 	swap_b(stack_b);
+	operation++;
 }
 
 void	push_a(t_stack **stack_a, t_stack **stack_b)
@@ -36,6 +41,7 @@ void	push_a(t_stack **stack_a, t_stack **stack_b)
 	*stack_b = (*stack_b)->next;
 	temp->next = *stack_a;
 	*stack_a = temp;
+	operation++;
 }
 
 void	push_b(t_stack **stack_a, t_stack **stack_b)
@@ -46,6 +52,7 @@ void	push_b(t_stack **stack_a, t_stack **stack_b)
 	*stack_a = (*stack_a)->next;
 	temp->next = *stack_b;
 	*stack_b = temp;
+	operation++;
 }
 
 void	rotate_a(t_stack **stack_a)
@@ -63,6 +70,7 @@ void	rotate_a(t_stack **stack_a)
 	while (temp2->next != NULL)
 		temp2 = temp2->next;
 	temp2->next = temp;
+	operation++;
 }
 
 void	rotate_b(t_stack **stack_b)
@@ -80,12 +88,14 @@ void	rotate_b(t_stack **stack_b)
 	while (temp2->next != NULL)
 		temp2 = temp2->next;
 	temp2->next = temp;
+	operation++;
 }
 
 void	rotate_ab(t_stack **stack_a, t_stack **stack_b)
 {
 	rotate_a(stack_a);
 	rotate_b(stack_b);
+	operation++;
 }
 
 void	reverse_rotate_a(t_stack **stack_a)
@@ -100,6 +110,7 @@ void	reverse_rotate_a(t_stack **stack_a)
 	last->next = NULL;
 	first->next = *stack_a;
 	*stack_a = first;
+	operation++;
 }
 
 void	reverse_rotate_b(t_stack **stack_b)
@@ -114,10 +125,12 @@ void	reverse_rotate_b(t_stack **stack_b)
 	last->next = NULL;
 	first->next = *stack_b;
 	*stack_b = first;
+	operation++;
 }
 
 void	reverse_rotate_ab(t_stack **stack_a, t_stack **stack_b)
 {
 	reverse_rotate_a(stack_a);
 	reverse_rotate_b(stack_b);
+	operation++;
 }

@@ -1,6 +1,8 @@
 
 #include "../includes/push_swap.h"
 
+int operation;
+
 int check_args(int argc, char **mass)
 {
 	int number[argc];
@@ -39,7 +41,7 @@ int count_index(char **mass, int number)
 	int i;
 
 	i = 0;
-	index = 1;
+	index = 0;
 	while (mass[i])
 	{
 		if (number > ft_atoi(mass[i]))
@@ -58,8 +60,8 @@ void get_args(int argc, char **argv)
 
 	i = 0;
 	info = malloc(sizeof(t_info));
-	info->count = argc;
-	printf("numbers = %d\n", info->count);
+	info->number = argc;
+	printf("numbers = %d\n", info->number);
 	stack_a = ft_lstnew_ps(ft_atoi(argv[i]),
 						   count_index(argv, ft_atoi(argv[i])));
 	temp_a = stack_a;
@@ -70,10 +72,11 @@ void get_args(int argc, char **argv)
 									count_index(argv, ft_atoi(argv[i])));
 		temp_a = temp_a->next;
 	}
-
 	print_stack(stack_a, "Спискок а до изменений\n");
-	if (info->count > 1)
-		sort_numbers(stack_a, info);
+	if (info->number > 1)
+		divide_into_two_stacks(stack_a, info);
+//	print_stack(stack_a, "Список а после изменений\n");
+//	print_stack(stack_b, "Список b после изменений\n");
 }
 
 int main(int argc, char **argv)
@@ -86,6 +89,7 @@ int main(int argc, char **argv)
 			return (-1);
 		}
 		get_args(argc, argv);
+		printf("%d\n", operation);
 	}
  	else
 		printf("Напиши аргументы\n");

@@ -45,5 +45,6 @@ void	divide_into_two_stacks(t_stack *stack_a, t_info *info);
 void	divide_into_groups(t_stack *stack_a, t_stack *stack_b, t_info *info);
 void	sort_remains(t_stack *stack_a, t_stack *stack_b, t_info *info);
 void	sort_groups(t_stack *stack_a, t_stack *stack_b, t_info *info);
+void	sort_greater_remains(t_stack **stack_a, t_stack **stack_b, t_info **info);
 
 #endif

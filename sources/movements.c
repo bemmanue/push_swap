@@ -37,6 +37,8 @@ void	push_a(t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack *temp;
 
+	if (*stack_b == NULL)
+		return ;
 	temp = (*stack_b);
 	*stack_b = (*stack_b)->next;
 	temp->next = *stack_a;
@@ -48,6 +50,8 @@ void	push_b(t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack *temp;
 
+	if (*stack_a == NULL)
+		return ;
 	temp = (*stack_a);
 	*stack_a = (*stack_a)->next;
 	temp->next = *stack_b;

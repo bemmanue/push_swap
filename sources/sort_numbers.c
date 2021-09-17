@@ -1,6 +1,8 @@
 
 #include "../includes/push_swap.h"
 
+int number;
+
 void	divide_into_two_stacks(t_stack *stack_a, t_info *info)
 {
 	t_stack	*stack_b;
@@ -8,6 +10,7 @@ void	divide_into_two_stacks(t_stack *stack_a, t_info *info)
 	int		position;
 
 	stack_b = NULL;
+	number = info->number;
 	info->middle_value = info->number / 2;
 	while (info->number)
 	{
@@ -33,21 +36,18 @@ void	divide_into_two_stacks(t_stack *stack_a, t_info *info)
 		}
 		info->number--;
 	}
-//	print_stack(stack_a, "Список а после изменений\n");
-//	print_stack(stack_b, "Список b после изменений\n");
+	info->number = info->middle_value;
+	info->middle_value = info->number / 2;
 	divide_into_groups(stack_a, stack_b, info);
 }
 
 void	divide_into_groups(t_stack *stack_a, t_stack *stack_b, t_info *info)
 {
 	t_stack	*temp;
-	int		remain;
 
 	info->flag = 0;
-	info->number = info->middle_value;
-	info->middle_value = info->number / 2;
-	remain = info->number;
-	while (remain >= 3)
+	info->remain = info->number;
+	while (info->remain >= number / 6)
 	{
 		while (info->number)
 		{
@@ -60,6 +60,7 @@ void	divide_into_groups(t_stack *stack_a, t_stack *stack_b, t_info *info)
 					while (stack_b->index != temp->index)
 						rotate_b(&stack_b);
 					push_a(&stack_a, &stack_b);
+					info->remain--;
 					temp = NULL;
 				}
 				else
@@ -70,151 +71,73 @@ void	divide_into_groups(t_stack *stack_a, t_stack *stack_b, t_info *info)
 		info->flag++;
 		info->number = info->middle_value;
 		info->middle_value = info->middle_value / 2;
-		remain = info->number;
 	}
-	sort_remains(stack_a, stack_b, info);
-//	print_stack(stack_a, "Список а после изменений\n");
-//	print_stack(stack_b, "Список b после изменений\n");
-}
-
-void	sort_remains(t_stack *stack_a, t_stack *stack_b, t_info *info)
-{
-	t_stack *temp;
-
-	temp = stack_b;
 	info->sorted = 0;
-	if (temp->index == 1)
-		swap_b(&stack_b);
-	temp = stack_b;
-	if (temp->index == 0)
-	{
-		push_a(&stack_a, &stack_b);
-		rotate_a(&stack_a);
-		info->sorted++;
-		push_a(&stack_a, &stack_b);
-		rotate_a(&stack_a);
-		info->sorted++;
-		temp = stack_b;
-		if (temp && temp->index == 2)
-		{
-			push_a(&stack_a, &stack_b);
-			rotate_a(&stack_a);
-			info->sorted++;
-		}
-	}
-	else if (temp->index == 2)
-	{
-		push_a(&stack_a, &stack_b);
-		if (stack_b->index == 0)
-			swap_b(&stack_b);
-		push_a(&stack_a, &stack_b);
-		push_a(&stack_a, &stack_b);
-		rotate_a(&stack_a);
-		info->sorted++;
-		rotate_a(&stack_a);
-		info->sorted++;
-		rotate_a(&stack_a);
-		info->sorted++;
-	}
-	sort_groups(stack_a, stack_b, info);
-//	print_stack(stack_a, "Спискок а после изменений\n");
-//	print_stack(stack_b, "Спискек b после изменений\n");
-}
-
-void	sort_groups(t_stack *stack_a, t_stack *stack_b, t_info *info)
-{
-	t_stack *temp;
-	t_stack *temp2;
-	int i;
-
-	i = 1;
-	while (i)
-	{
-		info->number = 0;
-		temp2 = stack_a;
-		while (temp2->flag == info->flag)
-		{
-			push_b(&stack_a, &stack_b);
-			info->number++;
-			temp2 = stack_a;
-		}
-		if (info->number <= 3)
-		{
-			temp = stack_b;
-			if (temp && temp->index - info->sorted == 1)
-				swap_b(&stack_b);
-			temp = stack_b;
-			if (temp && temp->index - info->sorted == 0)
-			{
-				push_a(&stack_a, &stack_b);
-				rotate_a(&stack_a);
-				info->sorted++;
-				temp = stack_b;
-				if (temp && temp->index - info->sorted == 0)
-				{
-					push_a(&stack_a, &stack_b);
-					rotate_a(&stack_a);
-					info->sorted++;
-				}
-				else if (temp && temp->index - info->sorted == 1)
-					swap_b(&stack_b);
-				temp = stack_b;
-				if (temp && temp->index - info->sorted == 0)
-				{
-					push_a(&stack_a, &stack_b);
-					rotate_a(&stack_a);
-					info->sorted++;
-				}
-				temp = stack_b;
-				if (temp && temp->index - info->sorted == 0)
-				{
-					push_a(&stack_a, &stack_b);
-					rotate_a(&stack_a);
-					info->sorted++;
-				}
-			}
-			else if (temp && temp->index - info->sorted == 2)
-			{
-				push_a(&stack_a, &stack_b);
-				if (stack_b->index - info->sorted == 0)
-					swap_b(&stack_b);
-				push_a(&stack_a, &stack_b);
-				push_a(&stack_a, &stack_b);
-				rotate_a(&stack_a);
-				info->sorted++;
-				rotate_a(&stack_a);
-				info->sorted++;
-				rotate_a(&stack_a);
-				info->sorted++;
-			}
-			info->number = 0;
-			if (info->flag == 0)
-				i--;
-			else
-				info->flag--;
-		}
-		else
-		{
-			sort_greater_remains(&stack_a, &stack_b, &info);
-//			break ;
-		}
-	}
-	printf("sorted = %d\n", info->sorted);
+	sort_remains(&stack_a, &stack_b, &info);
+	sort_groups(&stack_a, &stack_b, &info);
 	print_stack(stack_a, "Список а после изменений\n");
 	print_stack(stack_b, "Список b после изменений\n");
 }
 
+void	sort_remains(t_stack **stack_a, t_stack **stack_b, t_info **info)
+{
+	t_stack *temp;
+	int 	position;
+
+	while ((*info)->remain > 0)
+	{
+		temp = *stack_b;
+		position = 0;
+		while (temp != NULL)
+		{
+			if (temp->index - (*info)->sorted == 0)
+			{
+				if (position >= (*info)->remain / 2 + 1)
+					while ((*stack_b)->index != temp->index)
+						reverse_rotate_b(stack_b);
+				else
+					while ((*stack_b)->index != temp->index)
+						rotate_b(stack_b);
+				push_a(stack_a, stack_b);
+				rotate_a(stack_a);
+//				rotate_ab(stack_a, stack_b);
+				(*info)->sorted++;
+				(*info)->remain--;
+				temp = NULL;
+			}
+			else
+				temp = temp->next;
+			position++;
+		}
+	}
+}
+
+void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info)
+{
+	t_stack *temp;
+
+	while ((*info)->sorted < number)
+	{
+		temp = *stack_a;
+		(*info)->number = 0;
+		while (temp->flag == (*info)->flag)
+		{
+			push_b(stack_a, stack_b);
+			(*info)->number++;
+			temp = *stack_a;
+		}
+		(*info)->flag--;
+		sort_greater_remains(stack_a, stack_b, info);
+	}
+}
+
 void	sort_greater_remains(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
-	t_stack	*temp;
-	int		position;
-	int		num;
-	int		remain;
+	t_stack 	*temp;
 
-	num = (*info)->number;
+	(*info)->remain = (*info)->number;
 	(*info)->middle_value = (*info)->number / 2;
-	remain = (*info)->number;
-	while (remain >= 50)
+	while ((*info)->remain >= number / 5)
 	{
 		while ((*info)->number)
 		{
@@ -227,7 +150,7 @@ void	sort_greater_remains(t_stack **stack_a, t_stack **stack_b, t_info **info)
 						rotate_b(stack_b);
 					push_a(stack_a, stack_b);
 					temp = NULL;
-					num--;
+					(*info)->remain--;
 				}
 				else
 					temp = temp->next;
@@ -237,32 +160,6 @@ void	sort_greater_remains(t_stack **stack_a, t_stack **stack_b, t_info **info)
 		(*info)->flag++;
 		(*info)->number = (*info)->middle_value;
 		(*info)->middle_value = (*info)->middle_value / 2;
-		remain = (*info)->number;
 	}
-
-	while (num > 0)
-	{
-		temp = *stack_b;
-		position = 0;
-		while (temp != NULL)
-		{
-			if (temp->index - (*info)->sorted == 0)
-			{
-				if (position >= num / 2 + 1)
-					while ((*stack_b)->index != temp->index)
-						reverse_rotate_b(stack_b);
-				else
-					while ((*stack_b)->index != temp->index)
-						rotate_b(stack_b);
-				push_a(stack_a, stack_b);
-				rotate_a(stack_a);
-				(*info)->sorted++;
-				temp = NULL;
-				num--;
-			}
-			else
-				temp = temp->next;
-			position++;
-		}
-	}
+	sort_remains(stack_a, stack_b, info);
 }

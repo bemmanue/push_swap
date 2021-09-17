@@ -206,48 +206,15 @@ void	sort_groups(t_stack *stack_a, t_stack *stack_b, t_info *info)
 
 void	sort_greater_remains(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
-	(void)info;
-	(void)stack_a;
-	(void)stack_b;
-	t_stack 	*temp;
-
-	int	position;
-	int num;
-
-	num = (*info)->number;
-//	(*info)->middle_value = (*info)->number / 2;
-//	printf("num = %d\n", (*info)->number);
-//	while ((*info)->number)
-//	{
-//		temp = *stack_b;
-//		position = 0;
-//		while (temp != NULL)
-//		{
-//			if (temp->index - (*info)->sorted > (*info)->middle_value)
-//			{
-//				if (position >= (*info)->number / 2 + 1)
-//					while ((*stack_b)->index != temp->index)
-//						reverse_rotate_b(stack_b);
-//				else
-//					while ((*stack_b)->index != temp->index)
-//						rotate_b(stack_b);
-//				push_a(stack_a, stack_b);
-//				temp = NULL;
-//				num--;
-//			}
-//			else
-//				temp = temp->next;
-//			position++;
-//		}
-//		(*info)->number--;
-//	}
-//	printf("num = %d\n", num);
-
+	t_stack	*temp;
+	int		position;
+	int		num;
 	int		remain;
 
+	num = (*info)->number;
 	(*info)->middle_value = (*info)->number / 2;
 	remain = (*info)->number;
-	while (remain >= 60)
+	while (remain >= 50)
 	{
 		while ((*info)->number)
 		{
@@ -272,34 +239,6 @@ void	sort_greater_remains(t_stack **stack_a, t_stack **stack_b, t_info **info)
 		(*info)->middle_value = (*info)->middle_value / 2;
 		remain = (*info)->number;
 	}
-
-//	temp = *stack_b;
-//	while (temp)
-//	{
-//		if (temp->index - (*info)->sorted == 0)
-//		{
-//			push_a(stack_a, stack_b);
-//			rotate_a(stack_a);
-//			(*info)->sorted++;
-//		}
-//		else
-//			rotate_b(stack_b);
-//		temp = *stack_b;
-//	}
-
-//	temp = *stack_b;
-//	while (temp)
-//	{
-//		if (temp->index - (*info)->sorted == 0)
-//		{
-//			push_a(stack_a, stack_b);
-//			rotate_a(stack_a);
-//			(*info)->sorted++;
-//		}
-//		else
-//			rotate_b(stack_b);
-//		temp = *stack_b;
-//	}
 
 	while (num > 0)
 	{

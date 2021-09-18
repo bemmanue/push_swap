@@ -47,7 +47,7 @@ void	divide_into_groups(t_stack *stack_a, t_stack *stack_b, t_info *info)
 
 	info->flag = 0;
 	info->remain = info->number;
-	while (info->remain >= number / 6)
+	while (info->remain >= number / 5)
 	{
 		while (info->number)
 		{
@@ -58,7 +58,7 @@ void	divide_into_groups(t_stack *stack_a, t_stack *stack_b, t_info *info)
 				{
 					temp->flag += info->flag;
 					while (stack_b->index != temp->index)
-						rotate_b(&stack_b);
+							rotate_b(&stack_b);
 					push_a(&stack_a, &stack_b);
 					info->remain--;
 					temp = NULL;
@@ -100,14 +100,15 @@ void	sort_remains(t_stack **stack_a, t_stack **stack_b, t_info **info)
 						rotate_b(stack_b);
 				push_a(stack_a, stack_b);
 				rotate_a(stack_a);
-//				rotate_ab(stack_a, stack_b);
 				(*info)->sorted++;
 				(*info)->remain--;
 				temp = NULL;
 			}
 			else
+			{
 				temp = temp->next;
-			position++;
+				position++;
+			}
 		}
 	}
 }
@@ -128,6 +129,7 @@ void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info)
 		}
 		(*info)->flag--;
 		sort_greater_remains(stack_a, stack_b, info);
+		sort_remains(stack_a, stack_b, info);
 	}
 }
 
@@ -137,7 +139,7 @@ void	sort_greater_remains(t_stack **stack_a, t_stack **stack_b, t_info **info)
 
 	(*info)->remain = (*info)->number;
 	(*info)->middle_value = (*info)->number / 2;
-	while ((*info)->remain >= number / 5)
+	while ((*info)->remain >= number / 8)
 	{
 		while ((*info)->number)
 		{
@@ -161,5 +163,4 @@ void	sort_greater_remains(t_stack **stack_a, t_stack **stack_b, t_info **info)
 		(*info)->number = (*info)->middle_value;
 		(*info)->middle_value = (*info)->middle_value / 2;
 	}
-	sort_remains(stack_a, stack_b, info);
 }

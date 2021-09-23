@@ -5,7 +5,8 @@ SRCS			=	sources/push_swap.c			\
 					sources/movements.c			\
 					sources/list_functions.c	\
 					sources/print.c				\
-					sources/sort_numbers.c
+					sources/sort_numbers.c		\
+					sources/sort_three_numbers.c
 
 LIBFT			=	./libft/libft.a
 HEAD			=	includes/push_swap.h

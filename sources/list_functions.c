@@ -6,7 +6,7 @@ void	ft_lstadd_back_ps(t_stack **lst, t_stack *new)
 	t_stack	*temp;
 
 	temp = *lst;
-	if (!lst || !new)
+	if (!*lst || !new)
 		return ;
 	else if (!*lst)
 		*lst = new;

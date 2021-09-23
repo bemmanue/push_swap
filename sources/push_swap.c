@@ -54,29 +54,46 @@ int count_index(char **mass, int number)
 void get_args(int argc, char **argv)
 {
 	t_stack	*stack_a;
-	t_stack	*temp_a;
+	t_stack	*stack_b;
+	t_stack	*temp;
 	t_info	*info;
-	int 	i;
+	int 	position;
+	int		index;
+	int		number;
 
-	i = 0;
+	position = 0;
 	info = malloc(sizeof(t_info));
 	info->number = argc;
-	printf("numbers = %d\n", info->number);
-	stack_a = ft_lstnew_ps(ft_atoi(argv[i]),
-						   count_index(argv, ft_atoi(argv[i])));
-	temp_a = stack_a;
+	info->main = argc;
+	info->remain = 0;
+	info->middle_value = info->main / 2;
+	number = ft_atoi(argv[position]);
+	index = count_index(argv, ft_atoi(argv[position]));
+	stack_a = ft_lstnew_ps(number, index);
+	temp = stack_a;
 	while (--argc)
 	{
-		++i;
-		temp_a->next = ft_lstnew_ps(ft_atoi(argv[i]),
-									count_index(argv, ft_atoi(argv[i])));
-		temp_a = temp_a->next;
+		++position;
+		number = ft_atoi(argv[position]);
+		index = count_index(argv, ft_atoi(argv[position]));
+		temp->next = ft_lstnew_ps(number, index);
+		temp = temp->next;
 	}
+	stack_b = NULL;
 	print_stack(stack_a, "Спискок а до изменений\n");
-	if (info->number > 1)
-		divide_into_two_stacks(stack_a, info);
-//	print_stack(stack_a, "Список а после изменений\n");
-//	print_stack(stack_b, "Список b после изменений\n");
+	if (info->number == 1)
+		return ;
+	else if (info->number <= 3)
+		sort_three_numbers(&stack_a);
+	else
+	{
+		divide_into_two_stacks(&stack_a, &stack_b, &info);
+		divide_into_groups(&stack_a, &stack_b, &info);
+//		sort_remains(&stack_a, &stack_b, &info);
+//		sort_groups(&stack_a, &stack_b, &info);
+	}
+	print_stack(stack_a, "Список a после изменений");
+	print_stack(stack_b, "Список b после изменений");
 }
 
 int main(int argc, char **argv)

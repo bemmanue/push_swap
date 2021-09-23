@@ -6,7 +6,7 @@ void	print_stack(t_stack *stack, char *str)
 	t_stack	*temp;
 
 	temp = stack;
-	printf("%s", str);
+	printf("%s\n", str);
 	while (temp != NULL)
 	{
 		printf("number = %5d   ", temp->number);

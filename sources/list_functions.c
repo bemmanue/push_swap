@@ -1,29 +1,6 @@
 
 #include "../includes/push_swap.h"
 
-void	ft_lstadd_back_ps(t_stack **lst, t_stack *new)
-{
-	t_stack	*temp;
-
-	temp = *lst;
-	if (!*lst || !new)
-		return ;
-	else if (!*lst)
-		*lst = new;
-	else
-	{
-		while (temp->next != NULL)
-			temp = temp->next;
-		temp->next = new;
-	}
-}
-
-void	ft_lstadd_front_ps(t_stack **lst, t_stack *new)
-{
-	new->next = *lst;
-	*lst = new;
-}
-
 t_stack	*ft_lstlast_ps(t_stack *lst)
 {
 	t_stack	*last;

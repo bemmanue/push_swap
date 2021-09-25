@@ -1,7 +1,7 @@
 
 #include "../includes/push_swap.h"
 
-void	sort_five_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
+void	sort_five_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
 	int 	max;
 	int 	premax;
@@ -31,7 +31,7 @@ void	sort_five_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 	}
 }
 
-void	sort_four_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
+void	sort_four_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
 	t_stack *temp;
 	int 	max;
@@ -58,17 +58,6 @@ void	sort_four_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 	rotate_a(stack_a);
 }
 
-void	sort_five_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info)
-{
-	(void) *stack_b;
-	if ((*info)->number <= 3)
-		sort_three_numbers(stack_a);
-	else if ((*info)->number == 4)
-		sort_four_elements(stack_a, stack_b, info);
-	else if ((*info)->number == 5)
-		sort_five_elements(stack_a, stack_b, info);
-}
-
 void	sort_three_numbers(t_stack **stack_a)
 {
 	t_stack *temp;
@@ -76,31 +65,31 @@ void	sort_three_numbers(t_stack **stack_a)
 
 	temp = *stack_a;
 	next = (*stack_a)->next;
-	if (!temp)
-		return ;
-	if (temp->index == 0)
+	if (temp->index == 0 && next->index == 2)
 	{
-		if (next && next->index == 2)
-		{
 			reverse_rotate_a(stack_a);
 			swap_a(stack_a);
-		}
 	}
-	else if (temp->index == 1)
+	else if (temp->index == 1 && next->index == 0)
+		swap_a(stack_a);
+	else if (temp->index == 1 && next->index == 2)
+		reverse_rotate_a(stack_a);
+	else if (temp->index == 2 && next->index == 0)
+		rotate_a(stack_a);
+	else if (temp->index == 2 && next->index == 1)
 	{
-		if (next->index == 0)
-			swap_a(stack_a);
-		else if (next->index == 2)
-			reverse_rotate_a(stack_a);
+		swap_a(stack_a);
+		reverse_rotate_a(stack_a);
 	}
-	else if (temp->index == 2)
-	{
-		if (next->index == 0)
-			rotate_a(stack_a);
-		else if (next->index == 1)
-		{
-			swap_a(stack_a);
-			reverse_rotate_a(stack_a);
-		}
-	}
+}
+
+void	sort_few_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info)
+{
+	(void) *stack_b;
+	if ((*info)->number <= 3)
+		sort_three_numbers(stack_a);
+	else if ((*info)->number == 4)
+		sort_four_numbers(stack_a, stack_b, info);
+	else if ((*info)->number == 5)
+		sort_five_numbers(stack_a, stack_b, info);
 }

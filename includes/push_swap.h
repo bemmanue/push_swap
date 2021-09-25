@@ -26,7 +26,18 @@ typedef struct		s_stack
 int		check_arguments(int count, char **args);
 void	start_sorting(int argc, char **argv);
 
-void	sort_five_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info);
+t_stack	*fill_stack(int argc, char **argv);
+t_info	*fill_info(int argc);
+
+void	sort_few_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info);
+void	sort_three_numbers(t_stack **stack_a);
+
+void	divide_into_two_stacks(t_stack **stack_a, t_stack **stack_b, t_info **info);
+void	divide_into_groups(t_stack **stack_a, t_stack **stack_b, t_info **info);
+void	sort_remains(t_stack **stack_a, t_stack **stack_b, t_info **info);
+void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info);
+void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);
+void	sort_three_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);
 
 void	swap_a(t_stack **stack_a);
 void	swap_b(t_stack **stack_b);
@@ -44,13 +55,5 @@ void	print_stack(t_stack *stack, char *str);
 
 t_stack	*ft_lstlast_ps(t_stack *lst);
 t_stack	*ft_lstnew_ps(int number, int index);
-
-void	divide_into_two_stacks(t_stack **stack_a, t_stack **stack_b, t_info **info);
-void	divide_into_groups(t_stack **stack_a, t_stack **stack_b, t_info **info);
-void	sort_remains(t_stack **stack_a, t_stack **stack_b, t_info **info);
-void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info);
-void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);
-void	sort_three_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);
-void	sort_three_numbers(t_stack **stack_a);
 
 #endif

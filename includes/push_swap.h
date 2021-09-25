@@ -23,6 +23,11 @@ typedef struct		s_stack
 	struct s_stack	*next;
 }					t_stack;
 
+int		check_arguments(int count, char **args);
+void	start_sorting(int argc, char **argv);
+
+void	sort_five_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info);
+
 void	swap_a(t_stack **stack_a);
 void	swap_b(t_stack **stack_b);
 void	swap_ab(t_stack **stack_a, t_stack **stack_b);
@@ -35,10 +40,10 @@ void	reverse_rotate_a(t_stack **stack_a);
 void	reverse_rotate_b(t_stack **stack_b);
 void	reverse_rotate_ab(t_stack **stack_a, t_stack **stack_b);
 
-void		print_stack(t_stack *stack, char *str);
+void	print_stack(t_stack *stack, char *str);
 
-t_stack		*ft_lstlast_ps(t_stack *lst);
-t_stack		*ft_lstnew_ps(int number, int index);
+t_stack	*ft_lstlast_ps(t_stack *lst);
+t_stack	*ft_lstnew_ps(int number, int index);
 
 void	divide_into_two_stacks(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	divide_into_groups(t_stack **stack_a, t_stack **stack_b, t_info **info);

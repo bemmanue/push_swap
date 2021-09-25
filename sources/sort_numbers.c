@@ -80,35 +80,40 @@ void	sort_remains(t_stack **stack_a, t_stack **stack_b, t_info **info)
 	int		i;
 
 	i = 1;
-	while ((*info)->remain > 0)
+	if ((*info)->remain <= 3)
+		sort_three_elements(stack_a, stack_b, info);
+	else
 	{
-		temp = *stack_b;
-		while (temp)
+		while ((*info)->remain > 0)
 		{
-			if (temp->index - (*info)->sorted == 0)
+			temp = *stack_b;
+			while (temp)
 			{
-				temp->flag += i;
-				if (position >= (*info)->main / 2 + 1)
-					while ((*stack_b)->index != temp->index)
-						reverse_rotate_b(stack_b);
+				if (temp->index - (*info)->sorted == 0)
+				{
+					temp->flag += i;
+					if (position >= (*info)->main / 2 + 1)
+						while ((*stack_b)->index != temp->index)
+							reverse_rotate_b(stack_b);
+					else
+						while ((*stack_b)->index != temp->index)
+							rotate_b(stack_b);
+					push_a(stack_a, stack_b);
+					rotate_a(stack_a);
+					(*info)->remain--;
+					(*info)->main++;
+					(*info)->sorted++;
+					temp = *stack_b;
+					position = 0;
+				}
 				else
-					while ((*stack_b)->index != temp->index)
-						rotate_b(stack_b);
-				push_a(stack_a, stack_b);
-				rotate_a(stack_a);
-				(*info)->remain--;
-				(*info)->main++;
-				(*info)->sorted++;
-				temp = *stack_b;
-				position = 0;
+				{
+					temp = temp->next;
+					position++;
+				}
 			}
-			else
-			{
-				temp = temp->next;
-				position++;
-			}
+			i++;
 		}
-		i++;
 	}
 }
 
@@ -165,7 +170,30 @@ void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 		temp = *stack_b;
 		while (temp)
 		{
-			if (temp->index - (*info)->sorted > (*info)->middle_value)
+			if ((*stack_b)->index - (*info)->sorted == 0)
+			{
+				push_a(stack_a, stack_b);
+				rotate_a(stack_a);
+				(*info)->sorted++;
+				(*info)->remain--;
+				(*info)->main++;
+				temp = *stack_b;
+				(*info)->middle_value = (*info)->remain / 2;
+			}
+			else if ((*stack_b)->next && (*stack_b)->index - (*info)->sorted == 1
+				&& (*stack_b)->next->index - (*info)->sorted == 0)
+			{
+				push_a(stack_a, stack_b);
+				push_a(stack_a, stack_b);
+				rotate_a(stack_a);
+				rotate_a(stack_a);
+				(*info)->sorted += 2;
+				(*info)->remain -= 2;
+				(*info)->main += 2;
+				temp = *stack_b;
+				(*info)->middle_value = (*info)->remain / 2;
+			}
+			else if (temp->index - (*info)->sorted > (*info)->middle_value)
 			{
 				temp->flag += flag;
 				while ((*stack_b)->index != temp->index)

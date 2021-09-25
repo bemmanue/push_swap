@@ -3,38 +3,6 @@
 
 int operation;
 
-int check_args(int argc, char **mass)
-{
-	int number[argc];
-	int i;
-	int j;
-	int temp;
-
-	i = 0;
-	temp = argc;
-	while (argc--)
-	{
-		number[i] = ft_atoi(mass[i]);
-		i++;
-	}
-	i = 0;
-	while (i < temp)
-	{
-		j = 0;
-		while (j <= temp)
-		{
-			if (number[j] == number[i])
-			{
-				if (i != j)
-					return (0);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
 int count_index(char **mass, int number)
 {
 	int index;
@@ -51,17 +19,10 @@ int count_index(char **mass, int number)
 	return (index);
 }
 
-void get_args(int argc, char **argv)
+t_info	*fill_info(int argc)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-	t_stack	*temp;
 	t_info	*info;
-	int 	position;
-	int		index;
-	int		number;
 
-	position = 0;
 	info = malloc(sizeof(t_info));
 	info->number = argc;
 	info->main = argc;
@@ -69,6 +30,18 @@ void get_args(int argc, char **argv)
 	info->middle_value = info->main / 2;
 	info->sorted = 0;
 	info->flag = 0;
+	return (info);
+}
+
+t_stack	*fill_stack(int argc, char **argv)
+{
+	t_stack	*stack_a;
+	t_stack	*temp;
+	int 	position;
+	int		index;
+	int		number;
+
+	position = 0;
 	number = ft_atoi(argv[position]);
 	index = count_index(argv, ft_atoi(argv[position]));
 	stack_a = ft_lstnew_ps(number, index);
@@ -81,12 +54,23 @@ void get_args(int argc, char **argv)
 		temp->next = ft_lstnew_ps(number, index);
 		temp = temp->next;
 	}
+	return (stack_a);
+}
+
+void	start_sorting(int argc, char **argv)
+{
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+	t_info	*info;
+
+	info = fill_info(argc);
+	stack_a = fill_stack(argc, argv);
 	stack_b = NULL;
 	print_stack(stack_a, "Спискок а до изменений\n");
 	if (info->number == 1)
 		return ;
-	else if (info->number <= 3)
-		sort_three_numbers(&stack_a);
+	else if (info->number <= 5)
+		sort_five_numbers(&stack_a, &stack_b, &info);
 	else
 	{
 		divide_into_two_stacks(&stack_a, &stack_b, &info);
@@ -105,12 +89,12 @@ int main(int argc, char **argv)
 {
  	if (argc > 1)
 	{
-		if (!check_args(--argc, ++argv))
+		if (!check_arguments(--argc, ++argv))
 		{
 			printf("Error\n");
 			return (-1);
 		}
-		get_args(argc, argv);
+		start_sorting(argc, argv);
 		printf("operations = %d\n", operation);
 	}
  	else

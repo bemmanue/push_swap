@@ -10,23 +10,23 @@ void	sort_five_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info)
 	premax = max - 1;
 	while ((*stack_a)->index != max && (*stack_a)->index != premax)
 		rotate_a(stack_a);
-	push_b(stack_a, stack_b);
+	push_b(stack_a, stack_b, info);
 	while ((*stack_a)->index != max && (*stack_a)->index != premax)
 		rotate_a(stack_a);
-	push_b(stack_a, stack_b);
+	push_b(stack_a, stack_b, info);
 	sort_three_numbers(stack_a);
 	if ((*stack_b)->index == max)
 	{
-		push_a(stack_a, stack_b);
-		push_a(stack_a, stack_b);
+		push_a(stack_a, stack_b, info);
+		push_a(stack_a, stack_b, info);
 		rotate_a(stack_a);
 		rotate_a(stack_a);
 	}
 	else if ((*stack_b)->index == premax)
 	{
-		push_a(stack_a, stack_b);
+		push_a(stack_a, stack_b, info);
 		rotate_a(stack_a);
-		push_a(stack_a, stack_b);
+		push_a(stack_a, stack_b, info);
 		rotate_a(stack_a);
 	}
 }
@@ -47,14 +47,14 @@ void	sort_four_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info)
 	}
 	while ((*stack_a)->index != max)
 	{
-		if (position > (*info)->middle_value)
+		if (position > (*info)->middle)
 			reverse_rotate_a(stack_a);
 		else
 			rotate_a(stack_a);
 	}
-	push_b(stack_a, stack_b);
+	push_b(stack_a, stack_b, info);
 	sort_three_numbers(stack_a);
-	push_a(stack_a, stack_b);
+	push_a(stack_a, stack_b, info);
 	rotate_a(stack_a);
 }
 

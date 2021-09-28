@@ -4,10 +4,11 @@
 
 #include "../libft/libft.h"
 #include <stdio.h>
+#include <ctype.h>
 
 typedef struct		s_info
 {
-	int				middle_value;
+	int				middle;
 	int				number;
 	int				remain;
 	int				main;
@@ -32,18 +33,17 @@ t_info	*fill_info(int argc);
 void	sort_few_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	sort_three_numbers(t_stack **stack_a);
 
-void	divide_into_two_stacks(t_stack **stack_a, t_stack **stack_b, t_info **info);
+void	divide_stacks(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	divide_into_groups(t_stack **stack_a, t_stack **stack_b, t_info **info);
-void	sort_remains(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info);
-void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	sort_three_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);
+void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);
 
 void	swap_a(t_stack **stack_a);
 void	swap_b(t_stack **stack_b);
 void	swap_ab(t_stack **stack_a, t_stack **stack_b);
-void	push_a(t_stack **stack_a, t_stack **stack_b);
-void	push_b(t_stack **stack_a, t_stack **stack_b);
+void	push_a(t_stack **stack_a, t_stack **stack_b, t_info **info);
+void	push_b(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	rotate_a(t_stack **stack_a);
 void	rotate_b(t_stack **stack_b);
 void	rotate_ab(t_stack **stack_a, t_stack **stack_b);

@@ -25,7 +25,7 @@ t_info	*fill_info(int argc)
 	info->number = argc;
 	info->main = argc;
 	info->remain = 0;
-	info->middle_value = info->main / 2;
+	info->middle = info->main / 2;
 	info->sorted = 0;
 	info->flag = 0;
 	return (info);

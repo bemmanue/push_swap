@@ -19,7 +19,7 @@ void	start_sorting(int argc, char **argv)
 		sort_few_numbers(&stack_a, &stack_b, &info);
 	else
 	{
-		divide_into_two_stacks(&stack_a, &stack_b, &info);
+		divide_stacks(&stack_a, &stack_b, &info);
 		divide_into_groups(&stack_a, &stack_b, &info);
 		sort_three_elements(&stack_a, &stack_b, &info);
 		sort_groups(&stack_a, &stack_b, &info);

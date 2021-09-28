@@ -12,7 +12,7 @@ static int	check_digits(int count, char **args)
 		j = 0;
 		while (args[i][j])
 		{
-			if (!ft_isdigit(args[i][j]))
+			if (!isdigit(args[i][j]))
 				return (0);
 			j++;
 		}

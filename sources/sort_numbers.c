@@ -1,119 +1,68 @@
 
 #include "../includes/push_swap.h"
 
-void	divide_into_two_stacks(t_stack **stack_a, t_stack **stack_b, t_info **info)
+void	put_up_element(t_stack **stack, int index, int position, int i)
+{
+	if (position > i)
+		while ((*stack)->index != index)
+			reverse_rotate_a(stack);
+	else
+		while ((*stack)->index != index)
+			rotate_a(stack);
+}
+
+void	divide_stacks(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
 	t_stack	*temp;
 	int		position;
+	int		limit;
 
-	position = 0;
 	temp = *stack_a;
+	position = 0;
+	limit = (*info)->main / 2;
 	while (temp)
 	{
-		if (temp->index < (*info)->middle_value)
+		if (temp->index < limit)
 		{
-			if (temp->index == 0)
-				temp->flag = -1;
-			else
-				temp->flag = 1;
-			if (position > (*info)->middle_value)
-				while ((*stack_a)->index != temp->index)
-					reverse_rotate_a(stack_a);
-			else
-				while ((*stack_a)->index != temp->index)
-					rotate_a(stack_a);
-			push_b(stack_a, stack_b);
-			(*info)->main--;
-			(*info)->remain++;
+			temp->flag = 1;
+			put_up_element(stack_a, temp->index,
+						   position,(*info)->main / 2);
+			push_b(stack_a, stack_b, info);
 			temp = *stack_a;
 			position = 0;
 		}
 		else
-		{
 			temp = temp->next;
-			position++;
-		}
+		position++;
 	}
-	(*info)->middle_value = (*info)->remain / 2;
 }
 
 void	divide_into_groups(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
 	t_stack	*temp;
 	int		position;
+	int		limit;
 
 	while ((*info)->remain > 3)
 	{
 		temp = *stack_b;
+		limit = (*info)->middle;
 		while (temp)
 		{
-			if (temp->index >= (*info)->middle_value)
+			if (temp->index >= limit)
 			{
 				temp->flag += (*info)->flag;
-				if (position >= (*info)->main / 2 + 1)
-					while ((*stack_b)->index != temp->index)
-						reverse_rotate_b(stack_b);
-				else
-					while ((*stack_b)->index != temp->index)
-						rotate_b(stack_b);
-				push_a(stack_a, stack_b);
-				(*info)->remain--;
-				(*info)->main++;
+				put_up_element(stack_b, temp->index,
+							   position, (*info)->middle);
+				push_a(stack_a, stack_b, info);
 				temp = *stack_b;
 				position = 0;
 			}
 			else
-			{
 				temp = temp->next;
-				position++;
-			}
+			position++;
 		}
 		(*info)->flag++;
-		(*info)->middle_value = (*info)->remain / 2;
-	}
-}
-
-void	sort_remains(t_stack **stack_a, t_stack **stack_b, t_info **info)
-{
-	t_stack *temp;
-	int 	position;
-	int		i;
-
-	i = 1;
-	if ((*info)->remain <= 3)
-		sort_three_elements(stack_a, stack_b, info);
-	else
-	{
-		while ((*info)->remain > 0)
-		{
-			temp = *stack_b;
-			while (temp)
-			{
-				if (temp->index - (*info)->sorted == 0)
-				{
-					temp->flag += i;
-					if (position >= (*info)->main / 2 + 1)
-						while ((*stack_b)->index != temp->index)
-							reverse_rotate_b(stack_b);
-					else
-						while ((*stack_b)->index != temp->index)
-							rotate_b(stack_b);
-					push_a(stack_a, stack_b);
-					rotate_a(stack_a);
-					(*info)->remain--;
-					(*info)->main++;
-					(*info)->sorted++;
-					temp = *stack_b;
-					position = 0;
-				}
-				else
-				{
-					temp = temp->next;
-					position++;
-				}
-			}
-			i++;
-		}
 	}
 }
 
@@ -128,7 +77,7 @@ void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info)
 	{
 		temp = *stack_a;
 		flag = (*stack_a)->flag;
-		while (temp->flag == flag)
+		while (temp->flag == flag && temp->index != 0)
 		{
 			if (temp->index - (*info)->sorted == 0)
 			{
@@ -144,11 +93,7 @@ void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info)
 				(*info)->sorted += 2;
 			}
 			else
-			{
-				push_b(stack_a, stack_b);
-				(*info)->remain++;
-				(*info)->main--;
-			}
+				push_b(stack_a, stack_b, info);
 			temp = *stack_a;
 			next = (*stack_a)->next;
 		}
@@ -162,9 +107,11 @@ void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
 	t_stack	*temp;
 	int		flag;
+	int 	limit;
 
 	flag = 1;
-	(*info)->middle_value = (*info)->remain / 2;
+	(*info)->middle = (*info)->remain / 2;
+	limit = (*info)->middle;
 	while ((*info)->remain > 3)
 	{
 		temp = *stack_b;
@@ -172,42 +119,36 @@ void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 		{
 			if ((*stack_b)->index - (*info)->sorted == 0)
 			{
-				push_a(stack_a, stack_b);
+				push_a(stack_a, stack_b, info);
 				rotate_a(stack_a);
 				(*info)->sorted++;
-				(*info)->remain--;
-				(*info)->main++;
 				temp = *stack_b;
-				(*info)->middle_value = (*info)->remain / 2;
+				limit = (*info)->middle;
 			}
 			else if ((*stack_b)->next && (*stack_b)->index - (*info)->sorted == 1
 				&& (*stack_b)->next->index - (*info)->sorted == 0)
 			{
-				push_a(stack_a, stack_b);
-				push_a(stack_a, stack_b);
+				push_a(stack_a, stack_b, info);
+				push_a(stack_a, stack_b, info);
 				rotate_a(stack_a);
 				rotate_a(stack_a);
 				(*info)->sorted += 2;
-				(*info)->remain -= 2;
-				(*info)->main += 2;
 				temp = *stack_b;
-				(*info)->middle_value = (*info)->remain / 2;
+				limit = (*info)->middle;
 			}
-			else if (temp->index - (*info)->sorted > (*info)->middle_value)
+			else if (temp->index - (*info)->sorted > limit)
 			{
 				temp->flag += flag;
 				while ((*stack_b)->index != temp->index)
 					rotate_b(stack_b);
-				push_a(stack_a, stack_b);
-				(*info)->remain--;
-				(*info)->main++;
+				push_a(stack_a, stack_b, info);
 				temp = *stack_b;
 			}
 			else
 				temp = temp->next;
 		}
 		flag++;
-		(*info)->middle_value = (*info)->remain / 2;
+		limit = (*info)->middle;
 	}
 }
 
@@ -220,9 +161,7 @@ void	sort_three_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 		return ;
 	if (temp->index - (*info)->sorted == 0)
 	{
-		push_a(stack_a, stack_b);
-		(*info)->remain--;
-		(*info)->main++;
+		push_a(stack_a, stack_b, info);
 		temp = *stack_b;
 		if (!temp)
 		{
@@ -233,42 +172,32 @@ void	sort_three_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 		{
 			rotate_a(stack_a);
 			(*info)->sorted++;
-			push_a(stack_a, stack_b);
+			push_a(stack_a, stack_b, info);
 			rotate_a(stack_a);
 			(*info)->sorted++;
-			(*info)->remain--;
-			(*info)->main++;
 			temp = *stack_b;
 			if (temp && temp->index - (*info)->sorted == 0)
 			{
-				push_a(stack_a, stack_b);
+				push_a(stack_a, stack_b, info);
 				rotate_a(stack_a);
 				(*info)->sorted++;
-				(*info)->remain--;
-				(*info)->main++;
 			}
 		}
 		else if (temp->index - (*info)->sorted == 2)
 		{
 			rotate_ab(stack_a, stack_b);
 			(*info)->sorted++;
-			push_a(stack_a, stack_b);
+			push_a(stack_a, stack_b, info);
 			rotate_a(stack_a);
 			(*info)->sorted++;
-			(*info)->remain--;
-			(*info)->main++;
-			push_a(stack_a, stack_b);
+			push_a(stack_a, stack_b, info);
 			rotate_a(stack_a);
 			(*info)->sorted++;
-			(*info)->remain--;
-			(*info)->main++;
 		}
 	}
 	else if (temp->index - (*info)->sorted == 1)
 	{
-		push_a(stack_a, stack_b);
-		(*info)->remain--;
-		(*info)->main++;
+		push_a(stack_a, stack_b, info);
 		temp = *stack_b;
 		if (!temp)
 		{
@@ -277,62 +206,50 @@ void	sort_three_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 		}
 		else if (temp->index - (*info)->sorted == 0)
 		{
-			push_a(stack_a, stack_b);
+			push_a(stack_a, stack_b, info);
 			rotate_a(stack_a);
 			rotate_a(stack_a);
 			(*info)->sorted += 2;
-			(*info)->remain--;
-			(*info)->main++;
 			temp = *stack_b;
 			if (temp && temp->index - (*info)->sorted == 0)
 			{
-				push_a(stack_a, stack_b);
+				push_a(stack_a, stack_b, info);
 				rotate_a(stack_a);
 				(*info)->sorted++;
-				(*info)->remain--;
-				(*info)->main++;
 			}
 		}
 		else if (temp->index - (*info)->sorted == 2)
 		{
-			push_a(stack_a, stack_b);
-			push_a(stack_a, stack_b);
+			push_a(stack_a, stack_b, info);
+			push_a(stack_a, stack_b, info);
 			rotate_a(stack_a);
 			swap_a(stack_a);
 			rotate_a(stack_a);
 			rotate_a(stack_a);
 			(*info)->sorted += 3;
-			(*info)->remain -= 2;
-			(*info)->main += 2;
 		}
 	}
 	else if (temp->index - (*info)->sorted == 2)
 	{
-		push_a(stack_a, stack_b);
-		(*info)->remain--;
-		(*info)->main++;
+		push_a(stack_a, stack_b, info);
 		temp = *stack_b;
 		if (temp->index - (*info)->sorted == 0)
 		{
-			push_a(stack_a, stack_b);
+			push_a(stack_a, stack_b, info);
 			rotate_a(stack_a);
-			push_a(stack_a, stack_b);
+			push_a(stack_a, stack_b, info);
 			rotate_a(stack_a);
 			rotate_a(stack_a);
 			(*info)->sorted += 3;
-			(*info)->remain -= 2;
-			(*info)->main += 2;
 		}
 		else if (temp->index - (*info)->sorted == 1)
 		{
-			push_a(stack_a, stack_b);
-			push_a(stack_a, stack_b);
+			push_a(stack_a, stack_b, info);
+			push_a(stack_a, stack_b, info);
 			rotate_a(stack_a);
 			rotate_a(stack_a);
 			rotate_a(stack_a);
 			(*info)->sorted += 3;
-			(*info)->remain -= 2;
-			(*info)->main += 2;
 		}
 	}
 }

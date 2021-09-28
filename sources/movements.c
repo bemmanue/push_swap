@@ -39,7 +39,7 @@ void	swap_ab(t_stack **stack_a, t_stack **stack_b)
 	operation--;
 }
 
-void	push_a(t_stack **stack_a, t_stack **stack_b)
+void	push_a(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
 	t_stack *temp;
 
@@ -50,10 +50,13 @@ void	push_a(t_stack **stack_a, t_stack **stack_b)
 	temp->next = *stack_a;
 	*stack_a = temp;
 	operation++;
+	(*info)->main++;
+	(*info)->remain--;
+	(*info)->middle = (*info)->remain / 2;
 //	printf("pa\n");
 }
 
-void	push_b(t_stack **stack_a, t_stack **stack_b)
+void	push_b(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
 	t_stack *temp;
 
@@ -64,6 +67,9 @@ void	push_b(t_stack **stack_a, t_stack **stack_b)
 	temp->next = *stack_b;
 	*stack_b = temp;
 	operation++;
+	(*info)->main--;
+	(*info)->remain++;
+	(*info)->middle = (*info)->remain / 2;
 //	printf("pb\n");
 }
 

@@ -15,7 +15,7 @@ void	swap_a(t_stack **stack_a)
 	temp->next = *stack_a;
 	*stack_a = temp;
 	operation++;
-//	printf("sa\n");
+	printf("sa\n");
 }
 
 void	swap_b(t_stack **stack_b)
@@ -29,14 +29,7 @@ void	swap_b(t_stack **stack_b)
 	temp->next = *stack_b;
 	*stack_b = temp;
 	operation++;
-//	printf("sb\n");
-}
-
-void	swap_ab(t_stack **stack_a, t_stack **stack_b)
-{
-	swap_a(stack_a);
-	swap_b(stack_b);
-	operation--;
+	printf("sb\n");
 }
 
 void	push_a(t_stack **stack_a, t_stack **stack_b, t_info **info)
@@ -53,7 +46,7 @@ void	push_a(t_stack **stack_a, t_stack **stack_b, t_info **info)
 	(*info)->main++;
 	(*info)->remain--;
 	(*info)->middle = (*info)->remain / 2;
-//	printf("pa\n");
+	printf("pa\n");
 }
 
 void	push_b(t_stack **stack_a, t_stack **stack_b, t_info **info)
@@ -70,7 +63,7 @@ void	push_b(t_stack **stack_a, t_stack **stack_b, t_info **info)
 	(*info)->main--;
 	(*info)->remain++;
 	(*info)->middle = (*info)->remain / 2;
-//	printf("pb\n");
+	printf("pb\n");
 }
 
 void	rotate_a(t_stack **stack_a)
@@ -91,7 +84,7 @@ void	rotate_a(t_stack **stack_a)
 		temp = temp->next;
 	temp->next = tail;
 	operation++;
-//	printf("ra\n");
+	printf("ra\n");
 }
 
 void	rotate_b(t_stack **stack_b)
@@ -112,15 +105,7 @@ void	rotate_b(t_stack **stack_b)
 		temp2 = temp2->next;
 	temp2->next = temp;
 	operation++;
-//	printf("rb\n");
-}
-
-void	rotate_ab(t_stack **stack_a, t_stack **stack_b)
-{
-	rotate_a(stack_a);
-	rotate_b(stack_b);
-	operation--;
-//	printf("rab\n");
+	printf("rb\n");
 }
 
 void	reverse_rotate_a(t_stack **stack_a)
@@ -138,7 +123,7 @@ void	reverse_rotate_a(t_stack **stack_a)
 	head->next = *stack_a;
 	*stack_a = head;
 	operation++;
-//	printf("rra\n");
+	printf("rra\n");
 }
 
 void	reverse_rotate_b(t_stack **stack_b)
@@ -156,12 +141,5 @@ void	reverse_rotate_b(t_stack **stack_b)
 	head->next = *stack_b;
 	*stack_b = head;
 	operation++;
-//	printf("rrb\n");
-}
-
-void	reverse_rotate_ab(t_stack **stack_a, t_stack **stack_b)
-{
-	reverse_rotate_a(stack_a);
-	reverse_rotate_b(stack_b);
-	operation--;
+	printf("rrb\n");
 }

@@ -9,26 +9,19 @@ void	start_sorting(int argc, char **argv)
 	t_stack	*stack_b;
 	t_info	*info;
 
+	if (argc == 1)
+		return ;
 	info = fill_info(argc);
 	stack_a = fill_stack(argc, argv);
 	stack_b = NULL;
-	print_stack(stack_a, "Спискок а до изменений\n");
-	if (info->number == 1)
-		return ;
-	else if (info->number < 6)
+//	print_stack(stack_a, "Список а до изменений");
+	if (info->number < 6)
 		sort_few_numbers(&stack_a, &stack_b, &info);
 	else
-	{
-		divide_stacks(&stack_a, &stack_b, &info);
-		divide_into_groups(&stack_a, &stack_b, &info);
-		sort_three_elements(&stack_a, &stack_b, &info);
-		sort_groups(&stack_a, &stack_b, &info);
-	}
-	print_stack(stack_a, "Список a после изменений");
-	print_stack(stack_b, "Список b после изменений");
-	printf("info->main = %d\n", info->main);
-	printf("info->remain = %d\n", info->remain);
-	printf("info->sorted = %d\n", info->sorted);
+		sort_many_numbers(&stack_a, &stack_b, &info);
+//	print_stack(stack_a, "Список a после изменений");
+	free(info);
+	free(stack_a);
 }
 
 int main(int argc, char **argv)
@@ -41,7 +34,7 @@ int main(int argc, char **argv)
 			return (-1);
 		}
 		start_sorting(argc, argv);
-		printf("operations = %d\n", operation);
+//		printf("operations = %d\n", operation);
 	}
  	else
 		printf("Напиши аргументы\n");

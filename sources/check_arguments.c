@@ -13,7 +13,10 @@ static int	check_digits(int count, char **args)
 		while (args[i][j])
 		{
 			if (!isdigit(args[i][j]))
-				return (0);
+			{
+				if (args[i][j] != '-')
+					return (0);
+			}
 			j++;
 		}
 		i++;

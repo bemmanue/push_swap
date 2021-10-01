@@ -5,9 +5,11 @@ SRCS			=	sources/push_swap.c			\
 					sources/movements.c			\
 					sources/list_functions.c	\
 					sources/print.c				\
-					sources/sort_numbers.c		\
+					sources/accessory_functions.c	\
 					sources/sort_few_numbers.c	\
 					sources/check_arguments.c	\
+					sources/sort_three_elements.c\
+					sources/sort_many_numbers.c	\
 					sources/fill_data.c
 
 LIBFT			=	./libft/libft.a

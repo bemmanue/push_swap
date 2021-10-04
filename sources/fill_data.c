@@ -33,6 +33,8 @@ t_info	*fill_info(int argc)
 	t_info	*info;
 
 	info = malloc(sizeof(t_info));
+	if (!info)
+		return (NULL);
 	info->number = argc;
 	info->main = argc;
 	info->remain = 0;
@@ -54,6 +56,8 @@ t_stack	*fill_stack(int argc, char **argv)
 	number = ft_atoi(argv[position]);
 	index = count_index(argv, ft_atoi(argv[position]));
 	stack_a = new_stack(number, index);
+	if (!stack_a)
+		return (NULL);
 	temp = stack_a;
 	while (--argc)
 	{
@@ -61,6 +65,8 @@ t_stack	*fill_stack(int argc, char **argv)
 		number = ft_atoi(argv[position]);
 		index = count_index(argv, ft_atoi(argv[position]));
 		temp->next = new_stack(number, index);
+		if (!temp->next)
+			return (NULL);
 		temp = temp->next;
 	}
 	return (stack_a);

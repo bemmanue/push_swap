@@ -23,7 +23,7 @@ typedef struct		s_stack
 }					t_stack;
 
 int		check_arguments(int count, char **args);
-void	start_sorting(int argc, char **argv);
+int		start_sorting(int argc, char **argv);
 
 t_stack	*fill_stack(int argc, char **argv);
 t_info	*fill_info(int argc);

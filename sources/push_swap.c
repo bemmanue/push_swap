@@ -11,18 +11,23 @@
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-#include <stdio.h>
 
-void	start_sorting(int argc, char **argv)
+int	start_sorting(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 	t_info	*info;
 
 	if (argc == 1)
-		return ;
+		return (1);
 	info = fill_info(argc);
 	stack_a = fill_stack(argc, argv);
+	if (!info || !stack_a)
+	{
+		free(info);
+		free_stack(&stack_a);
+		return (0);
+	}
 	stack_b = NULL;
 	if (info->number < 6)
 		sort_few_numbers(&stack_a, &stack_b, &info);
@@ -30,6 +35,7 @@ void	start_sorting(int argc, char **argv)
 		sort_many_numbers(&stack_a, &stack_b, &info);
 	free(info);
 	free_stack(&stack_a);
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -40,14 +46,17 @@ int	main(int argc, char **argv)
 	{
 		check = check_arguments(--argc, ++argv);
 		if (check == 0)
-		{
 			ft_putstr_fd("Error\n", 1);
-			return (-1);
-		}
 		else if (check == 2)
 			return (0);
 		else
-			start_sorting(argc, argv);
+		{
+			if (!start_sorting(argc, argv))
+			{
+				ft_putstr_fd("Error\n", 1);
+				return (-1);
+			}
+		}
 	}
 	else
 		ft_putstr_fd("Error\n", 1);

@@ -14,7 +14,8 @@ static int	check_digits(int count, char **args)
 		{
 			if (!isdigit(args[i][j]))
 			{
-				if (args[i][j] != '-')
+				if (args[i][j] != '-'
+				|| (args[i][j] == '-' && !isdigit(args[i][j + 1])))
 					return (0);
 			}
 			j++;
@@ -55,13 +56,17 @@ int check_arguments(int count, char **args)
 	i = 0;
 	if (!check_digits(count, args))
 		return (0);
-	set = malloc(sizeof(int) * count);
+	set = malloc(sizeof(int *) * count);
 	while (i < count)
 	{
 		set[i] = ft_atoi(args[i]);
 		i++;
 	}
 	if (!check_repeats(count, set))
+	{
+		free(set);
 		return (0);
+	}
+	free(set);
 	return (1);
 }

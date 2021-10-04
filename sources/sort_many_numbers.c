@@ -42,8 +42,7 @@ void	divide_into_groups(t_stack **stack_a, t_stack **stack_b, t_info **info)
 			if (temp->index >= limit)
 			{
 				temp->flag += (*info)->flag;
-				put_up_element_b(stack_b, temp->index,
-							   position, (*info)->middle);
+				put_up_element_b(stack_b, temp->index);
 				push_a(stack_a, stack_b, info);
 				temp = *stack_b;
 				position = 0;
@@ -75,7 +74,7 @@ void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 				push_a(stack_a, stack_b, info);
 				i--;
 			}
-			else if (!check_fast_b_sorting(stack_a, stack_b, info))
+			else if (!fast_b_sorting(stack_a, stack_b, info))
 				rotate_b(stack_b);
 		}
 		flag++;
@@ -91,7 +90,7 @@ void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info)
 		flag = (*stack_a)->flag;
 		while ((*stack_a)->flag == flag && (*stack_a)->index != 0)
 		{
-			if (!check_fast_a_sorting(stack_a, info))
+			if (!fast_a_sorting(stack_a, info))
 				push_b(stack_a, stack_b, info);
 		}
 		if ((*info)->remain > 3)

@@ -1,19 +1,7 @@
 
 #include "../includes/push_swap.h"
 
-t_stack	*ft_lstlast_ps(t_stack *lst)
-{
-	t_stack	*last;
-
-	last = lst;
-	if (last == NULL)
-		return (NULL);
-	while (last->next != NULL)
-		last = last->next;
-	return (last);
-}
-
-t_stack	*ft_lstnew_ps(int number, int index)
+t_stack	*new_stack(int number, int index)
 {
 	t_stack	*new;
 
@@ -25,4 +13,28 @@ t_stack	*ft_lstnew_ps(int number, int index)
 	new->flag = 0;
 	new->next = NULL;
 	return (new);
+}
+
+t_stack	*last_stack(t_stack *lst)
+{
+	t_stack	*last;
+
+	last = lst;
+	if (last == NULL)
+		return (NULL);
+	while (last->next != NULL)
+		last = last->next;
+	return (last);
+}
+
+void	free_stack(t_stack **stack)
+{
+	t_stack	*temp;
+
+	while (*stack != NULL)
+	{
+		temp = *stack;
+		*stack = (*stack)->next;
+		free(temp);
+	}
 }

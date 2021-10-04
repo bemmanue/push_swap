@@ -42,14 +42,14 @@ t_stack	*fill_stack(int argc, char **argv)
 	position = 0;
 	number = ft_atoi(argv[position]);
 	index = count_index(argv, ft_atoi(argv[position]));
-	stack_a = ft_lstnew_ps(number, index);
+	stack_a = new_stack(number, index);
 	temp = stack_a;
 	while (--argc)
 	{
 		++position;
 		number = ft_atoi(argv[position]);
 		index = count_index(argv, ft_atoi(argv[position]));
-		temp->next = ft_lstnew_ps(number, index);
+		temp->next = new_stack(number, index);
 		temp = temp->next;
 	}
 	return (stack_a);

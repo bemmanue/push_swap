@@ -41,22 +41,20 @@ void	sort_three_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);
 
 void	put_up_element_a(t_stack **stack, int index, int position, int middle);
-void	put_up_element_b(t_stack **stack, int index, int position, int middle);
-int		check_fast_a_sorting(t_stack **stack_a, t_info **info);
-int		check_fast_b_sorting(t_stack **stack_a, t_stack **stack_b, t_info **info);
+void	put_up_element_b(t_stack **stack, int index);
+int		fast_a_sorting(t_stack **stack_a, t_info **info);
+int		fast_b_sorting(t_stack **stack_a, t_stack **stack_b, t_info **info);
 
 void	swap_a(t_stack **stack_a);
-void	swap_b(t_stack **stack_b);
 void	push_a(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	push_b(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	rotate_a(t_stack **stack_a);
 void	rotate_b(t_stack **stack_b);
 void	reverse_rotate_a(t_stack **stack_a);
-void	reverse_rotate_b(t_stack **stack_b);
 
-void	print_stack(t_stack *stack, char *str);
+t_stack	*last_stack(t_stack *lst);
+t_stack	*new_stack(int number, int index);
+void	free_stack(t_stack **stack);
 
-t_stack	*ft_lstlast_ps(t_stack *lst);
-t_stack	*ft_lstnew_ps(int number, int index);
 
 #endif

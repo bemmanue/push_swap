@@ -1,7 +1,20 @@
 
 #include "../includes/push_swap.h"
 
-int operation;
+void	print_stack(t_stack *stack, char *str)
+{
+	t_stack	*temp;
+
+	temp = stack;
+	printf("%s\n", str);
+	while (temp != NULL)
+	{
+		printf("number = %5d   ", temp->number);
+		printf("index = %d", temp->index);
+		printf("    flag = %d\n", temp->flag);
+		temp = temp->next;
+	}
+}
 
 void	start_sorting(int argc, char **argv)
 {
@@ -13,15 +26,14 @@ void	start_sorting(int argc, char **argv)
 		return ;
 	info = fill_info(argc);
 	stack_a = fill_stack(argc, argv);
+//	print_stack(stack_a, "Stack_a:");
 	stack_b = NULL;
-//	print_stack(stack_a, "Список а до изменений");
 	if (info->number < 6)
 		sort_few_numbers(&stack_a, &stack_b, &info);
 	else
 		sort_many_numbers(&stack_a, &stack_b, &info);
-//	print_stack(stack_a, "Список a после изменений");
 	free(info);
-	free(stack_a);
+	free_stack(&stack_a);
 }
 
 int main(int argc, char **argv)
@@ -34,9 +46,8 @@ int main(int argc, char **argv)
 			return (-1);
 		}
 		start_sorting(argc, argv);
-//		printf("operations = %d\n", operation);
 	}
  	else
-		printf("Напиши аргументы\n");
+		printf("Error\n");
 	return (0);
 }

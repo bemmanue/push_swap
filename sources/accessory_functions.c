@@ -1,14 +1,10 @@
 
 #include "../includes/push_swap.h"
 
-void	put_up_element_b(t_stack **stack, int index, int position, int middle)
+void	put_up_element_b(t_stack **stack, int index)
 {
-	if (position > middle)
-		while ((*stack)->index != index)
-			reverse_rotate_b(stack);
-		else
-			while ((*stack)->index != index)
-				rotate_b(stack);
+	while ((*stack)->index != index)
+		rotate_b(stack);
 }
 
 void	put_up_element_a(t_stack **stack, int index, int position, int middle)
@@ -21,7 +17,7 @@ void	put_up_element_a(t_stack **stack, int index, int position, int middle)
 			rotate_a(stack);
 }
 
-int	check_fast_a_sorting(t_stack **stack_a, t_info **info)
+int	fast_a_sorting(t_stack **stack_a, t_info **info)
 {
 	t_stack *next;
 
@@ -44,7 +40,7 @@ int	check_fast_a_sorting(t_stack **stack_a, t_info **info)
 	return (0);
 }
 
-int	check_fast_b_sorting(t_stack **stack_a, t_stack **stack_b, t_info **info)
+int	fast_b_sorting(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
 	if ((*stack_b)->index - (*info)->sorted == 0)
 	{

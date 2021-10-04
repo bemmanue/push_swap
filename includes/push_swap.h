@@ -3,8 +3,6 @@
 # define PUSH_SWAP_H
 
 #include "../libft/libft.h"
-#include <stdio.h>
-#include <ctype.h>
 
 typedef struct		s_info
 {
@@ -46,15 +44,16 @@ int		fast_a_sorting(t_stack **stack_a, t_info **info);
 int		fast_b_sorting(t_stack **stack_a, t_stack **stack_b, t_info **info);
 
 void	swap_a(t_stack **stack_a);
+void	swap_b(t_stack **stack_b);
 void	push_a(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	push_b(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	rotate_a(t_stack **stack_a);
 void	rotate_b(t_stack **stack_b);
 void	reverse_rotate_a(t_stack **stack_a);
+void	reverse_rotate_b(t_stack **stack_b);
 
 t_stack	*last_stack(t_stack *lst);
 t_stack	*new_stack(int number, int index);
 void	free_stack(t_stack **stack);
-
 
 #endif

@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_a_movements.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/04 13:57:48 by bemmanue          #+#    #+#             */
+/*   Updated: 2021/10/04 13:57:49 by bemmanue         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
 void	swap_a(t_stack **stack_a)
 {
-	t_stack *temp;
+	t_stack	*temp;
 
 	if (!*stack_a || !(*stack_a)->next)
 		return ;
@@ -16,7 +27,7 @@ void	swap_a(t_stack **stack_a)
 
 void	push_a(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
-	t_stack *temp;
+	t_stack	*temp;
 
 	if (*stack_b == NULL)
 		return ;

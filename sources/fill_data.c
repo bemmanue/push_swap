@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_data.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/04 13:56:44 by bemmanue          #+#    #+#             */
+/*   Updated: 2021/10/04 13:56:46 by bemmanue         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
 static int	count_index(char **mass, int number)
 {
-	int index;
-	int i;
+	int	index;
+	int	i;
 
 	i = 0;
 	index = 0;
@@ -35,7 +46,7 @@ t_stack	*fill_stack(int argc, char **argv)
 {
 	t_stack	*stack_a;
 	t_stack	*temp;
-	int 	position;
+	int		position;
 	int		index;
 	int		number;
 

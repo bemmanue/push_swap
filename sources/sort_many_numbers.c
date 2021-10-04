@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_many_numbers.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/04 13:57:24 by bemmanue          #+#    #+#             */
+/*   Updated: 2021/10/04 13:57:26 by bemmanue         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
@@ -16,7 +27,7 @@ void	divide_stacks(t_stack **stack_a, t_stack **stack_b, t_info **info)
 		{
 			temp->flag = 1;
 			put_up_element_a(stack_a, temp->index,
-						   position, (*info)->main / 2);
+				position, (*info)->main / 2);
 			push_b(stack_a, stack_b, info);
 			temp = *stack_a;
 			position = 0;
@@ -57,9 +68,9 @@ void	divide_into_groups(t_stack **stack_a, t_stack **stack_b, t_info **info)
 
 void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
-	int		limit;
-	int 	flag;
-	int 	i;
+	int	limit;
+	int	flag;
+	int	i;
 
 	flag = 1;
 	while ((*info)->remain > 3)
@@ -83,7 +94,7 @@ void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 
 void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
-	int 	flag;
+	int	flag;
 
 	while ((*info)->sorted < (*info)->number)
 	{

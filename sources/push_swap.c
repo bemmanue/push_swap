@@ -1,20 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/04 13:57:04 by bemmanue          #+#    #+#             */
+/*   Updated: 2021/10/04 13:57:05 by bemmanue         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-void	print_stack(t_stack *stack, char *str)
-{
-	t_stack	*temp;
-
-	temp = stack;
-	printf("%s\n", str);
-	while (temp != NULL)
-	{
-		printf("number = %5d   ", temp->number);
-		printf("index = %d", temp->index);
-		printf("    flag = %d\n", temp->flag);
-		temp = temp->next;
-	}
-}
+#include <stdio.h>
 
 void	start_sorting(int argc, char **argv)
 {
@@ -26,7 +23,6 @@ void	start_sorting(int argc, char **argv)
 		return ;
 	info = fill_info(argc);
 	stack_a = fill_stack(argc, argv);
-//	print_stack(stack_a, "Stack_a:");
 	stack_b = NULL;
 	if (info->number < 6)
 		sort_few_numbers(&stack_a, &stack_b, &info);
@@ -36,18 +32,24 @@ void	start_sorting(int argc, char **argv)
 	free_stack(&stack_a);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
- 	if (argc > 1)
+	int	check;
+
+	if (argc > 1)
 	{
-		if (!check_arguments(--argc, ++argv))
+		check = check_arguments(--argc, ++argv);
+		if (check == 0)
 		{
-			printf("Error\n");
+			ft_putstr_fd("Error\n", 1);
 			return (-1);
 		}
-		start_sorting(argc, argv);
+		else if (check == 2)
+			return (0);
+		else
+			start_sorting(argc, argv);
 	}
- 	else
-		printf("Error\n");
+	else
+		ft_putstr_fd("Error\n", 1);
 	return (0);
 }

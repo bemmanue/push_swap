@@ -12,22 +12,9 @@
 
 #include "../includes/push_swap.h"
 
-static int	already_sorted(int count, int *set)
-{
-	int	i;
-
-	i = 0;
-	while (count--)
-	{
-		if (set[i] > set[i + 1])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 static int	check_digits(int count, char **args)
 {
+	int	digit;
 	int	i;
 	int	j;
 
@@ -35,38 +22,17 @@ static int	check_digits(int count, char **args)
 	while (i < count)
 	{
 		j = 0;
+		digit = 0;
 		while (args[i][j])
 		{
 			if (!ft_isdigit(args[i][j]))
 			{
-				if (args[i][j] != '-'
+				if (args[i][j] != '-' || digit > 11
 				|| (args[i][j] == '-' && !ft_isdigit(args[i][j + 1])))
 					return (0);
 			}
 			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-static int	check_repeats(int count, int *set)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < count)
-	{
-		j = 0;
-		while (j < count)
-		{
-			if (set[j] == set[i])
-			{
-				if (i != j)
-					return (0);
-			}
-			j++;
+			digit++;
 		}
 		i++;
 	}
@@ -75,8 +41,9 @@ static int	check_repeats(int count, int *set)
 
 static int	*fill_set(int count, char **args)
 {
-	int	*set;
-	int	i;
+	int		*set;
+	int		i;
+	long	number;
 
 	i = 0;
 	set = malloc(sizeof(int) * count);
@@ -84,6 +51,12 @@ static int	*fill_set(int count, char **args)
 		return (0);
 	while (i < count)
 	{
+		number = ft_atol((args[i]));
+		if (number > 2147483647 || number < -2147483648)
+		{
+			free(set);
+			return (NULL);
+		}
 		set[i] = ft_atoi(args[i]);
 		i++;
 	}
@@ -97,6 +70,8 @@ int	check_arguments(int count, char **args)
 	if (!check_digits(count, args))
 		return (0);
 	set = fill_set(count, args);
+	if (!set)
+		return (0);
 	if (!check_repeats(count, set))
 	{
 		free(set);
@@ -105,7 +80,7 @@ int	check_arguments(int count, char **args)
 	if (already_sorted(count, set))
 	{
 		free(set);
-		return (2);
+		return (3);
 	}
 	free(set);
 	return (1);

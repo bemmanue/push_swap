@@ -44,21 +44,21 @@ int	main(int argc, char **argv)
 
 	if (argc > 1)
 	{
-		check = check_arguments(--argc, ++argv);
-		if (check == 0)
-			ft_putstr_fd("Error\n", 1);
-		else if (check == 2)
-			return (0);
+		if (argc == 2)
+		{
+			check = check_string(argv[1]);
+			argc = count_numbers(argv[1]);
+			argv = ft_split(argv[1], ' ');
+		}
 		else
+			check = check_arguments(--argc, ++argv);
+		if (check == 0)
+			ft_putstr_fd("Error\n", 2);
+		else if (check == 1)
 		{
 			if (!start_sorting(argc, argv))
-			{
-				ft_putstr_fd("Error\n", 1);
-				return (-1);
-			}
+				terminate();
 		}
 	}
-	else
-		ft_putstr_fd("Error\n", 1);
 	return (0);
 }

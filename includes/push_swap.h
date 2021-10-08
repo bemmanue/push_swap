@@ -23,6 +23,10 @@ typedef struct		s_stack
 }					t_stack;
 
 int		check_arguments(int count, char **args);
+int		check_string(char *argv);
+int		count_numbers(char *str);
+int		already_sorted(int count, int *set);
+int		check_repeats(int count, int *set);
 int		start_sorting(int argc, char **argv);
 
 t_stack	*fill_stack(int argc, char **argv);
@@ -55,5 +59,6 @@ void	reverse_rotate_b(t_stack **stack_b);
 t_stack	*last_stack(t_stack *lst);
 t_stack	*new_stack(int number, int index);
 void	free_stack(t_stack **stack);
+void	terminate(void);
 
 #endif

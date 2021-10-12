@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "push_swap.h"
 
 void	sort_five_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {

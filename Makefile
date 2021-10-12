@@ -37,7 +37,7 @@ lib:
 
 clean:
 					$(MAKE)	clean -sC $(LIBFT_PATH)
-					rm $(OBJS)
+					rm -rf $(OBJS)
 
 fclean:				clean
 					$(MAKE)	fclean -sC $(LIBFT_PATH)

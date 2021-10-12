@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/08 20:17:20 by bemmanue          #+#    #+#             */
+/*   Updated: 2021/10/08 20:17:22 by bemmanue         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# ifndef PUSH_SWAP_H
+#ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include "../libft/libft.h"
+# include "../libft/libft.h"
 
-typedef struct		s_info
+typedef struct s_info
 {
 	int				middle;
 	int				number;
@@ -14,7 +25,7 @@ typedef struct		s_info
 	int				sorted;
 }					t_info;
 
-typedef struct		s_stack
+typedef struct s_stack
 {
 	int				number;
 	int				index;
@@ -39,7 +50,7 @@ void	sort_many_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	divide_stacks(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	divide_into_groups(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info);
-void	sort_three_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);
+void	sort_three_element(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);
 
 void	put_up_element_a(t_stack **stack, int index, int position, int middle);

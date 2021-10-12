@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "push_swap.h"
 
 int	start_sorting(int argc, char **argv)
 {
@@ -49,6 +49,8 @@ int	main(int argc, char **argv)
 			check = check_string(argv[1]);
 			argc = count_numbers(argv[1]);
 			argv = ft_split(argv[1], ' ');
+			if (!argv)
+				terminate();
 		}
 		else
 			check = check_arguments(--argc, ++argv);

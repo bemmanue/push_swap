@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_string.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/08 20:11:30 by bemmanue          #+#    #+#             */
+/*   Updated: 2021/10/08 20:11:33 by bemmanue         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "push_swap.h"
 
-static int check_digits(char *str)
+static int	check_digits(char *str)
 {
-	int i;
-	int digit;
+	int	i;
+	int	digit;
 
 	i = 0;
 	digit = 0;
@@ -13,8 +24,8 @@ static int check_digits(char *str)
 		if (!ft_isdigit(str[i]))
 		{
 			if ((str[i] != '-' && str[i] != ' ') || digit > 11
-			|| (str[i] == '-' && !ft_isdigit(str[i + 1]))
-			|| (ft_isdigit(str[i]) && str[i + 1] == '-'))
+				|| (str[i] == '-' && !ft_isdigit(str[i + 1]))
+				|| (ft_isdigit(str[i]) && str[i + 1] == '-'))
 				return (0);
 			digit = 0;
 		}
@@ -26,20 +37,25 @@ static int check_digits(char *str)
 
 int	count_numbers(char *str)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
+	int	len;
 
 	i = 0;
 	count = 0;
-	while (str[i])
+	len = ft_strlen(str);
+	while (i < len)
 	{
 		if (ft_isdigit(str[i]) || str[i] == '-')
 		{
 			if (str[i] == '-')
 				i++;
-			while (ft_isdigit(str[i]))
-				i++;
-			count++;
+			if (ft_isdigit(str[i]))
+			{
+				count++;
+				while (ft_isdigit(str[i]))
+					i++;
+			}
 		}
 		i++;
 	}
@@ -77,8 +93,8 @@ static int	*fill_set(char *str, int size)
 
 int	check_string(char *argv)
 {
-	int *set;
-	int count;
+	int	*set;
+	int	count;
 
 	if (!check_digits(argv))
 		return (0);

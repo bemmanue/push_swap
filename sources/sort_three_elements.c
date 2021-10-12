@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
+#include "push_swap.h"
 
 static void	sort_from_two(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
@@ -92,7 +92,7 @@ static void	sort_from_null(t_stack **stack_a, t_stack **stack_b, t_info **info)
 	}
 }
 
-void	sort_three_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
+void	sort_three_element(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
 	if (!*stack_b)
 		return ;

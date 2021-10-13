@@ -6,7 +6,7 @@
 /*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 13:57:04 by bemmanue          #+#    #+#             */
-/*   Updated: 2021/10/04 13:57:05 by bemmanue         ###   ########.fr       */
+/*   Updated: 2021/10/13 15:10:23 by bemmanue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,26 @@ int	start_sorting(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	int	check;
+	int		check;
+	char	*temp;
 
 	if (argc > 1)
 	{
 		if (argc == 2)
 		{
-			check = check_string(argv[1]);
-			argc = count_numbers(argv[1]);
-			argv = ft_split(argv[1], ' ');
-			if (!argv)
+			*argv = ft_strjoin("./push_swap ", argv[1]);
+			if (!*argv)
 				terminate();
-		}
-		else
-			check = check_arguments(--argc, ++argv);
-		if (check == 0)
-			ft_putstr_fd("Error\n", 2);
-		else if (check == 1)
-		{
-			if (!start_sorting(argc, argv))
+			argv = ft_split(*argv, ' ');
+			if (!argv || !*argv)
 				terminate();
+			argc = count_argc(argv);
+			temp = *argv;
+			free (temp);
 		}
+		check = check_arguments(--argc, ++argv);
+		if (check == 1 && !start_sorting(argc, argv))
+			terminate();
 	}
 	return (0);
 }

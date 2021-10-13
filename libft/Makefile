@@ -19,10 +19,12 @@ BNS = 		ft_lstadd_back.c 	ft_lstadd_front.c 	ft_lstclear.c 	\
 		ft_lstmap.c		ft_lstnew.c		ft_lstsize.c
 
 OBJS = 		${SRCS:.c=.o}
+DEPS =		${SRCS:.c=.d}
 BNS_OBJS =	${BNS:.c=.o}
+BNS_DEPS =	${BNS:.c=.d}
 HEAD =		libft.h
 CC = 		gcc
-CFLAGS =	-Wall -Wextra -Werror -c
+CFLAGS =	-Wall -Wextra -Werror -MMD -c
 
 all: 		$(NAME)
 .c.o: 		$(HEAD)
@@ -32,8 +34,9 @@ $(NAME): 	$(OBJS) $(HEAD)
 bonus:
 		make OBJS="$(BNS_OBJS)" all
 clean:
-		rm -f $(OBJS) $(BNS_OBJS)
+		rm -f $(OBJS) $(BNS_OBJS) $(DEPS) $(BNS_DEPS)
 fclean: 	clean
 		rm -f $(NAME)
 re:		fclean all
 .PHONY:    	all bonus clean fclean re
+-include			$(OBJS:.o=.d) $(BNS_OBJS:.o=.d)

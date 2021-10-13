@@ -33,11 +33,8 @@ typedef struct s_stack
 	struct s_stack	*next;
 }					t_stack;
 
-int		check_arguments(int count, char **args);
-int		check_string(char *argv);
-int		count_numbers(char *str);
-int		already_sorted(int count, int *set);
-int		check_repeats(int count, int *set);
+int		count_argc(char **str);
+int		check_arguments(int argc, char **args);
 int		start_sorting(int argc, char **argv);
 
 t_stack	*fill_stack(int argc, char **argv);

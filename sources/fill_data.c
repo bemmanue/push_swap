@@ -59,7 +59,7 @@ t_stack	*fill_stack(int argc, char **argv)
 	if (!stack_a)
 		return (NULL);
 	temp = stack_a;
-	while (--argc)
+	while (--argc > 0)
 	{
 		++position;
 		number = ft_atoi(argv[position]);

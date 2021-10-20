@@ -45,7 +45,6 @@ void	sort_few_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	sort_many_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info);
 
 void	divide_stacks(t_stack **stack_a, t_stack **stack_b, t_info **info);
-void	divide_into_groups(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	sort_three_element(t_stack **stack_a, t_stack **stack_b, t_info **info);
 void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info);

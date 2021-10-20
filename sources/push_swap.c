@@ -6,7 +6,7 @@
 /*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 13:57:04 by bemmanue          #+#    #+#             */
-/*   Updated: 2021/10/13 15:10:23 by bemmanue         ###   ########.fr       */
+/*   Updated: 2021/10/14 15:41:00 by bemmanue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char **argv)
 			if (!*argv)
 				terminate();
 			argv = ft_split(*argv, ' ');
-			if (!argv || !*argv)
+			if (!argv || !*argv || !argv[1])
 				terminate();
 			argc = count_argc(argv);
 			temp = *argv;

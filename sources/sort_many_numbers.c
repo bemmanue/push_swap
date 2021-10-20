@@ -38,34 +38,6 @@ void	divide_stacks(t_stack **stack_a, t_stack **stack_b, t_info **info)
 	}
 }
 
-void	divide_into_groups(t_stack **stack_a, t_stack **stack_b, t_info **info)
-{
-	t_stack	*temp;
-	int		position;
-	int		limit;
-
-	while ((*info)->remain > 3)
-	{
-		temp = *stack_b;
-		limit = (*info)->middle;
-		while (temp)
-		{
-			if (temp->index >= limit)
-			{
-				temp->flag += (*info)->flag;
-				put_up_element_b(stack_b, temp->index);
-				push_a(stack_a, stack_b, info);
-				temp = *stack_b;
-				position = 0;
-			}
-			else
-				temp = temp->next;
-			position++;
-		}
-		(*info)->flag++;
-	}
-}
-
 void	sort_more_elements(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
 	int	limit;
@@ -98,22 +70,20 @@ void	sort_groups(t_stack **stack_a, t_stack **stack_b, t_info **info)
 
 	while ((*info)->sorted < (*info)->number)
 	{
+		if ((*info)->remain > 3)
+			sort_more_elements(stack_a, stack_b, info);
+		sort_three_element(stack_a, stack_b, info);
 		flag = (*stack_a)->flag;
 		while ((*stack_a)->flag == flag && (*stack_a)->index != 0)
 		{
 			if (!fast_a_sorting(stack_a, info))
 				push_b(stack_a, stack_b, info);
 		}
-		if ((*info)->remain > 3)
-			sort_more_elements(stack_a, stack_b, info);
-		sort_three_element(stack_a, stack_b, info);
 	}
 }
 
 void	sort_many_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
 	divide_stacks(stack_a, stack_b, info);
-	divide_into_groups(stack_a, stack_b, info);
-	sort_three_element(stack_a, stack_b, info);
 	sort_groups(stack_a, stack_b, info);
 }

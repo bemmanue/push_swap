@@ -52,23 +52,26 @@ static void	check_digits(int count, char **args)
 {
 	int	i;
 	int	j;
+	int	digit;
 
 	i = 0;
 	while (i < count)
 	{
 		j = 0;
+		digit = 0;
 		while (args[i][j])
 		{
-			if (ft_isdigit(args[i][j]) && (args[i][j + 1]) == '-')
+			if (ft_isdigit(args[i][j]))
+				digit++;
+			if (ft_isdigit(args[i][j]) && args[i][j + 1] == '-')
 				terminate();
-			if (!ft_isdigit(args[i][j]))
-			{
-				if (args[i][j] != '-'
-				|| (args[i][j] == '-' && !ft_isdigit(args[i][j + 1])))
-					terminate();
-			}
+			if (!ft_isdigit(args[i][j]) && (args[i][j] != '-'
+			|| (args[i][j] == '-' && !ft_isdigit(args[i][j + 1]))))
+				terminate();
 			j++;
 		}
+		if (!digit)
+			terminate();
 		i++;
 	}
 }
@@ -83,13 +86,14 @@ static int	*fill_set(int count, char **args)
 	i = 0;
 	set = malloc(sizeof(int) * count);
 	if (!set)
-		return (0);
+		terminate();
 	while (i < count)
 	{
-		len = ft_strlen((args[i]));
+		len = (int)ft_strlen((args[i]));
 		number = ft_atol((args[i]));
-		if ((number > 2147483647 || number < -2147483648) && len > 11)
-			return (NULL);
+		if ((number > 2147483647 || number < -2147483648)
+			|| (len > 11 && (number > 2147483647 || number < -2147483648)))
+			terminate();
 		set[i] = ft_atoi(args[i]);
 		i++;
 	}
@@ -102,8 +106,6 @@ int	check_arguments(int count, char **args)
 
 	check_digits(count, args);
 	set = fill_set(count, args);
-	if (!set)
-		terminate();
 	check_repeats(count, set);
 	if (check_already_sorted(count, set))
 	{

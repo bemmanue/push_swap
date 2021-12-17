@@ -89,7 +89,6 @@ void	sort_three_numbers(t_stack **stack_a)
 
 void	sort_few_numbers(t_stack **stack_a, t_stack **stack_b, t_info **info)
 {
-	(void) *stack_b;
 	if ((*info)->number <= 3)
 		sort_three_numbers(stack_a);
 	else if ((*info)->number == 4)

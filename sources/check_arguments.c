@@ -12,12 +12,12 @@
 
 #include "push_swap.h"
 
-static int	check_already_sorted(int count, int *set)
+int	already_sorted(int count, int *set)
 {
 	int	i;
 
 	i = 0;
-	while (--count > 0)
+	while (i < count - 1)
 	{
 		if (set[i] > set[i + 1])
 			return (0);
@@ -37,51 +37,39 @@ static void	check_repeats(int count, int *set)
 		j = 0;
 		while (j < count)
 		{
-			if (set[j] == set[i])
-			{
-				if (i != j)
-					terminate();
-			}
+			if (set[j] == set[i] && i != j)
+				terminate();
 			j++;
 		}
 		i++;
 	}
 }
 
-static void	check_digits(int count, char **args)
+static void	check_digits(char *arg)
 {
 	int	i;
-	int	j;
 	int	digit;
 
 	i = 0;
-	while (i < count)
+	digit = 0;
+	if (arg[i] == '-')
+		i++;
+	while (arg[i])
 	{
-		j = 0;
-		digit = 0;
-		while (args[i][j])
-		{
-			if (ft_isdigit(args[i][j]))
-				digit++;
-			if (ft_isdigit(args[i][j]) && args[i][j + 1] == '-')
-				terminate();
-			if (!ft_isdigit(args[i][j]) && (args[i][j] != '-'
-			|| (args[i][j] == '-' && !ft_isdigit(args[i][j + 1]))))
-				terminate();
-			j++;
-		}
-		if (!digit)
+		if (!ft_isdigit(arg[i]))
 			terminate();
 		i++;
+		digit++;
 	}
+	if (!digit || digit > 10)
+		terminate();
 }
 
 static int	*fill_set(int count, char **args)
 {
-	int		*set;
-	int		i;
-	int		len;
-	long	number;
+	int			*set;
+	int			i;
+	long long	temp;
 
 	i = 0;
 	set = malloc(sizeof(int) * count);
@@ -89,29 +77,30 @@ static int	*fill_set(int count, char **args)
 		terminate();
 	while (i < count)
 	{
-		len = (int)ft_strlen((args[i]));
-		number = ft_atol((args[i]));
-		if ((number > 2147483647 || number < -2147483648)
-			|| (len > 11 && (number > 2147483647 || number < -2147483648)))
+		temp = ft_atol((args[i]));
+		if (temp > 2147483647 || temp < -2147483648)
+		{
+			free(set);
 			terminate();
+		}
 		set[i] = ft_atoi(args[i]);
 		i++;
 	}
 	return (set);
 }
 
-int	check_arguments(int count, char **args)
+int	*check_and_convert(int count, char **args)
 {
 	int	*set;
+	int	i;
 
-	check_digits(count, args);
+	i = 0;
+	while (i < count)
+	{
+		check_digits(args[i]);
+		i++;
+	}
 	set = fill_set(count, args);
 	check_repeats(count, set);
-	if (check_already_sorted(count, set))
-	{
-		free(set);
-		return (2);
-	}
-	free(set);
-	return (1);
+	return (set);
 }

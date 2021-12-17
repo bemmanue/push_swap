@@ -6,28 +6,25 @@
 /*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 13:57:04 by bemmanue          #+#    #+#             */
-/*   Updated: 2021/10/14 15:41:00 by bemmanue         ###   ########.fr       */
+/*   Updated: 2021/12/10 18:24:53 by bemmanue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
-int	start_sorting(int argc, char **argv)
+int	start_sorting(int count, int *set)
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 	t_info	*info;
 
-	if (argc == 1)
-		return (1);
-	info = fill_info(argc);
-	stack_a = fill_stack(argc, argv);
-	if (!info || !stack_a)
-	{
-		free(info);
-		free_stack(&stack_a);
-		return (0);
-	}
+	info = fill_info(count);
+	if (!info)
+		terminate();
+	stack_a = fill_stack(count, set);
+	if (!stack_a)
+		terminate();
 	stack_b = NULL;
 	if (info->number < 6)
 		sort_few_numbers(&stack_a, &stack_b, &info);
@@ -40,26 +37,20 @@ int	start_sorting(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	int		check;
-	char	*temp;
+	int	*set;
+	int	count;
 
 	if (argc > 1)
 	{
 		if (argc == 2)
 		{
-			*argv = ft_strjoin("./push_swap ", argv[1]);
-			if (!*argv)
-				terminate();
-			argv = ft_split(*argv, ' ');
-			if (!argv || !*argv || !argv[1])
-				terminate();
+			argv = unify_string(argv);
 			argc = count_argc(argv);
-			temp = *argv;
-			free (temp);
 		}
-		check = check_arguments(--argc, ++argv);
-		if (check == 1 && !start_sorting(argc, argv))
-			terminate();
+		count = argc - 1;
+		set = check_and_convert(count, ++argv);
+		if (!already_sorted(count, set) && count > 1)
+			start_sorting(count, set);
 	}
 	return (0);
 }

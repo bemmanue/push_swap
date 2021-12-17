@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   bonus_ab_movements.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bemmanue <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/08 20:23:17 by bemmanue          #+#    #+#             */
-/*   Updated: 2021/10/08 20:23:31 by bemmanue         ###   ########.fr       */
+/*   Created: 2021/12/17 15:35:14 by bemmanue          #+#    #+#             */
+/*   Updated: 2021/12/17 15:35:16 by bemmanue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../checker.h"
 
-long long	ft_atol(const char *str)
+void	bns_rotate_ab(t_stack **stack_a, t_stack **stack_b)
 {
-	int			min;
-	long long	nbr;
-	int			dgt;
+	bns_rotate_a(stack_a);
+	bns_rotate_b(stack_b);
+}
 
-	min = 0;
-	nbr = 0;
-	while ((*str >= 9 && *str <= 13) || *str == ' ')
-		str++;
-	if (*str == '-' || *str == '+')
-		if (*str++ == '-')
-			min++;
-	while (*str >= '0' && *str <= '9')
-	{
-		nbr *= 10;
-		dgt = *str++ - 48;
-		nbr += dgt;
-	}
-	if (min)
-		nbr = -nbr;
-	return (nbr);
+void	bns_reverse_rotate_ab(t_stack **stack_a, t_stack **stack_b)
+{
+	bns_rotate_a(stack_a);
+	bns_rotate_b(stack_b);
 }

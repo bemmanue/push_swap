@@ -12,14 +12,13 @@
 
 #include "push_swap.h"
 
-t_stack	*new_stack(int number, int index)
+t_stack	*new_stack(int index)
 {
 	t_stack	*new;
 
 	new = malloc(sizeof(t_stack));
 	if (!new)
 		return (NULL);
-	new->number = number;
 	new->index = index;
 	new->flag = 0;
 	new->next = NULL;
